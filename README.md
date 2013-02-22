@@ -1,29 +1,24 @@
-# Carrierwave::Mongoid::Media
+Make it very easy to accept Carrierwave uploads to a Mongoid GridFS-backed data store and then deliver them.
 
-TODO: Write a gem description
+Add this to your `config/routes.rb`:
 
-## Installation
+``` ruby
+My::Application.routes.draw do
+  CarrierWave::Mongoid::Media.routes(self)
+end
+```
 
-Add this line to your application's Gemfile:
+And you'll have a `/media/*path` route that just delivers whatever Carrierwave uploads to this app, as long as
+you're using [carrierwave-mongoid](https://github.com/jnicklas/carrierwave-mongoid) to do the uploads. CarrierWave's
+`grid_fs_access_url` will be set correctly for you, too.
 
-    gem 'carrierwave-mongoid-media'
+You can specify if any of the paths should respond with `Content-Disposition: attachment` headers with an initializer:
 
-And then execute:
+``` ruby
+# config/initializers/carrierwave_mongoid_media.rb
 
-    $ bundle
+CarrierwaveMongoidMedia.force_downloads_on do |path|
+  # return true if the file should get Content-Disposition: attachment
+end
+```
 
-Or install it yourself as:
-
-    $ gem install carrierwave-mongoid-media
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request

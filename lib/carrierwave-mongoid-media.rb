@@ -1,3 +1,6 @@
 require "carrierwave-mongoid-media/version"
-require 'carrierwave-mongoid-media/engine' if defined?(Rails::Engine)
 
+if defined?(Rails::Engine)
+  require 'carrierwave-mongoid-media/engine'
+  require 'carrierwave/mongoid/media/controller_behavior'
+end

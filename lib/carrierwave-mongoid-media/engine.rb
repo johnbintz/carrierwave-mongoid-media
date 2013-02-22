@@ -13,15 +13,20 @@ module CarrierWave
         @prefix ||= DEFAULT_PREFIX
       end
 
-      def self.routes(router, prefix = :media)
-        self.prefix = prefix
+      def self.routes(router, options = {})
+        options = {
+          :prefix => :media,
+          :controller => :media
+        }.merge(options)
+
+        self.prefix = options[:prefix]
 
         CarrierWave.configure do |c|
-          c.grid_fs_access_url = "/#{prefix}"
+          c.grid_fs_access_url = "/#{options[:prefix]}"
         end
 
         router.instance_exec do
-          get "#{prefix}/*path" => "media#show", :as => :media
+          get "#{options[:prefix]}/*path" => "#{options[:controller]}#show", :as => :media
         end
       end
     end
