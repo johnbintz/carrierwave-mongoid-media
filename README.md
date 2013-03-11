@@ -8,7 +8,7 @@ My::Application.routes.draw do
 end
 ```
 
-And you'll have a `/media/*path` route that just delivers whatever Carrierwave uploads to this app, as long as
+And you'll have a `/media/:id` route that just delivers whatever Carrierwave uploads to this app, as long as
 you're using [carrierwave-mongoid](https://github.com/jnicklas/carrierwave-mongoid) to do the uploads. CarrierWave's
 `grid_fs_access_url` will be set correctly for you, too.
 
@@ -17,7 +17,7 @@ You can specify if any of the paths should respond with `Content-Disposition: at
 ``` ruby
 # config/initializers/carrierwave_mongoid_media.rb
 
-CarrierwaveMongoidMedia.force_downloads_on do |path|
+CarrierwaveMongoidMedium.force_downloads_on do |path|
   # return true if the file should get Content-Disposition: attachment
 end
 ```

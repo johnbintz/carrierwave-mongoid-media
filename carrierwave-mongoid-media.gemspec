@@ -19,4 +19,5 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'carrierwave'
   gem.add_dependency 'carrierwave-mongoid'
+  gem.add_dependency 'virtus'
 end

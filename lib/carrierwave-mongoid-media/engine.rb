@@ -5,6 +5,8 @@ module CarrierWave
     class Media < ::Rails::Engine
       DEFAULT_PREFIX = :media
 
+      config.autoload_paths << File.expand_path("../../../app/behaviors", __FILE__)
+
       class << self
         attr_writer :prefix
       end
@@ -16,7 +18,7 @@ module CarrierWave
       def self.routes(router, options = {})
         options = {
           :prefix => :media,
-          :controller => :media
+          :controller => "carrierwave/mongoid_media"
         }.merge(options)
 
         self.prefix = options[:prefix]
@@ -26,7 +28,7 @@ module CarrierWave
         end
 
         router.instance_exec do
-          get "#{options[:prefix]}/*path" => "#{options[:controller]}#show", :as => :media
+          get "#{options[:prefix]}/:id" => "#{options[:controller]}#show", :as => :media, :id => /.*/
         end
       end
     end
