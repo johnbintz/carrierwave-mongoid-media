@@ -79,7 +79,7 @@ class CarrierwaveMongoidMedium
     controller_instance.content_type = self.content_type
     controller_instance.response_body = self.gridfs_object
     if self.force_download?
-      controller_instance.response.headers['Content-Disposition'] = "attachment; filename='#{self.attachment_filename}'"
+      controller_instance.response.headers['Content-Disposition'] = %{attachment; filename="#{self.attachment_filename}"}
     end
   end
 end
